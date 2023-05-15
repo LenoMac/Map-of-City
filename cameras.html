@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Camera Example</title>
+</head>
+
+<body>
+    <input type="file">
+    <!-- <video id="video"></video>
+    <canvas id="canvas"></canvas>
+    <button onclick="capturePhoto()">Capture Photo</button> -->
+
+    <script>
+        async function getGPSFromPhoto() {
+            const url = 'https://airexif2.p.rapidapi.com/v1/exif/extract';
+            const options = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-RapidAPI-Key': '4fa2bcd37amshb9070f21cc639f6p16d33ejsndcde92d08253',
+                    'X-RapidAPI-Host': 'airexif2.p.rapidapi.com'
+                },
+                body: {
+                    photo_url: ''
+                }
+            };
+
+            try {
+                const response = await fetch(url, options);
+                const result = await response.text();
+                console.log(result);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        getGPSFromPhoto();
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.scss">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,600,1,200" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,600;0,700;1,200;1,300&display=swap"
+        rel="stylesheet">
+    <script src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full"></script>
+    <title>Safe Roads</title>
+</head>
+
+<body>
+
+
+    <!-- LOGIN PAGE -->
+    <div id="login-page"
+        class="transition-colors absolute left-0 top-0 w-full h-[100vh] bg-white flex flex-col justify-end p-10">
+        <!-- <div id="black"></div> -->
+        <form
+            class="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-max h-max p-8 flex flex-col gap-5 bg-gray-100 shadow-lg shadow-[#000]-500/50">
+            <h1 class="self-center text-[25px] text-[#333] font-medium">Login</h1>
+            <div class="flex flex-col gap-4">
+                <input autocomplete="off"
+                    class="w-[250px] self-center outline-none select-none border-px border-gray rounded-[5px] px-[5px] text-[15px] py-[6px] shadow-lg shadow-gray-500/20"
+                    placeholder="ID card" id="id-card" type="text">
+                <input autocomplete="off"
+                    class="w-[250px] self-center outline-none select-none border-px border-gray rounded-[5px] px-[5px] text-[15px] py-[6px] shadow-lg shadow-gray-500/20"
+                    placeholder="Password" id="password" type="password">
+            </div>
+            <button id="login"
+                class="self-center bg-cyan-500 shadow-lg shadow-cyan-500/50 self-center text-white font-medium w-full px-[3px] py-[5px] text-[15px] rounded-[5px]">LOGIN</button>
+            <div class="flex gap-[4px]">
+                <input type="checkbox" class="">
+                <small class="text-[15px] text-[#666]">remember me</small>
+            </div>
+        </form>
+    </div>
+
+
+
+    <div id="mainPage" class='relative w-full h-[100vh] flex'>
+        <!-- REVIEW -->
+        <div id="map1" class="w-full h-full flex">
+            <div id="popup" class="w-[0] h-full bg-white relative shadow-lg flex flex-col">
+                <span id="back" class="material-symbols-rounded p-6 self-end cursor-pointer">
+                    arrow_back_ios
+                </span>
+            </div>
+            <div id="map" class="w-[100%] h-full"></div>
+        </div>
+
+        <!-- ADD -->
+        <div id="add" class="bg-white w-full h-[100vh] p-12 self-center flex gap-4">
+            <div class="flex justify-between self-center w-[60%]">
+                <div class="flex flex-col self-center gap-5 pl-8">
+                    <button onclick="startCamera()"
+                        class="bg-blue-500 shadow-lg shadow-blue-500/50 w-max h-max self-center p-2 rounded-md text-white font-bold">Включить
+                        камеру</button>
+                    <video id="video" class="h-max w-[350px] rounded-xl border-[#d2e1fe] border-8 cover"></video>
+                </div>
+                <div class="flex flex-col gap-4 self-center justify-center h-max">
+                    <button class="flex self-center gap-1 text-white bg-blue-500 shadow-lg shadow-blue-500/50 w-[175px] h-max p-2 rounded-md text-white font-bold" onclick="takeSnapshot()">
+                        <span class="material-symbols-rounded self-center">
+                            photo_camera
+                        </span>
+                        <p class="self-center">Сделать снимок</p>
+                    </button>
+                    <label for="file" class="flex self-center font-bold text-white w-[175px] h-max rounded-md p-2 pl-4 cursor-pointer bg-indigo-500 shadow-lg shadow-indigo-500/50">Открыть галерею</label>
+                    <input id="file" type="file" class="absolute top-[-1000px] z-[-10]">
+                </div>
+            </div>
+            <div id="panel" class=" w-[300px] overflow-auto">
+                <img id="snapshot" src="">
+            </div>
+        </div>
+
+        <!-- PROFILE -->
+        <div id="profile" class="p-10">Account</div>
+
+
+        <!-- BTNS -->
+        <div id="burger"
+            class="absolute top-3 left-4 rounded-full bg-white p-2 cursor-pointer shadow-lg shadow-gray-600/50">
+            <span class="material-symbols-rounded text-[35px] self-center flex">
+                menu
+            </span>
+        </div>
+
+        <div
+            class="absolute top-[90%] left-[50%] translate-x-[-50%] translate-y-[-50%] self-center flex w-max gap-8 h-max bg-white rounded-2xl p-4 shadow-lg shadow-gray-600/40 z-10">
+            <span id="mapBtn"
+                class="material-symbols-rounded w-max h-[30px self-center cursor-pointer text-[40px] text-green-600 transition-colors hover:text-green-600">
+                grid_view
+            </span>
+            <span id="addBtn"
+                class="material-symbols-rounded w-max h-[30px self-center cursor-pointer text-[40px] text-gray-500 transition-colors hover:text-green-600">
+                add_circle
+            </span>
+            <span id="profBtn"
+                class="material-symbols-rounded w-max h-[30px self-center cursor-pointer text-[40px] text-gray-500 transition-colors hover:text-green-600">
+                account_circle
+            </span>
+        </div>
+    </div>
+
+    <!-- LOAD ANIMATION -->
+    <div id="loadField" class="absolute w-full h-full top-0 left-0 bg-white z-2">
+        <div class="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col gap-3">
+            <p class="text-black font-medium text-[20px] self-center">Loading...</p>
+            <div class="h-3 w-[250px] bg-none flex border-[3px] border-[#000] self-center rounded-2xl">
+                <span id="loader" class="h-full bg-black"></span>
+            </div>
+        </div>
+    </div>
+    <script src="language.js"></script>
+    <script type="text/javascript" src="map1.js"></script>
+    <script src="script.js"></script>
+    <script src="takePhoto.js"></script>
+</body>
+
+</html>
